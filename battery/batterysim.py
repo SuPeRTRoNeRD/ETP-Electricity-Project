@@ -8,6 +8,21 @@ import random
 def batterysim(battery, planning):
     # result parameter to be filled:
     profile = []
+    soc = battery.batsoc
+    for p in planning:
+        if p < battery.batpmin:
+            p = battery.batpmin
+        if p > battery.batpmax:
+            p = battery.batpmax
+        soc_next = soc + p*cfg_sim['tau']
+        if soc_next < battery.batminsoc:
+            p = (battery.batminsoc - soc)/cfg_sim['tau']
+            soc_next = battery.batminsoc
+        elif soc_next > battery.batcapacity:
+            p = (battery.batcapacity - soc)/cfg_sim['tau']
+            soc_next = battery.batcapacity
+        soc = soc_next
+        profile.append(p)
 
     # NOTE: The following parameters are best used READ-ONLY!
     # Battery parameters can be obtained as follows
@@ -41,5 +56,6 @@ def batterysim(battery, planning):
 
     # For each interval i, these can be set by adding the correction value to the profile list, i.e.:
     # profile.append(<your_value>)
+
 
     return profile
