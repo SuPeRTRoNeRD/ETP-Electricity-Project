@@ -8,6 +8,7 @@ import random
 def evsim(ev, planning):
     # result parameter:
     profile = []
+    soc = ev.evsoc
 
     # NOTE: The following parameters are best used READ-ONLY!
     # ev parameters can be obtained as follows
@@ -53,24 +54,39 @@ def evsim(ev, planning):
                 arrival_interval -= int(24 * (3600 / cfg_sim['timebase']))
 
         # FIXME Here you will need to implement the behaviour of the electric vehicle
-        # You do not necessarily need to use all if-constructs, but htey are defined for your confenience if you wish to make use of them
-        # Keep the "pass" if you do not want to use one of the if-constructs.
+        # You do not necessarily need to use all conditionals, but they are defined for your convenience if you wish to make use of them
+        # Keep the "pass" if you do not want to use one of the conditionals.
+        p = planning[i]
         if i == arrival_interval:
             # Moment at which the EV arrives
-            pass
+            soc = soc - ev.evenergy
 
         if i >= arrival_interval and i < departure_interval:
             # Interval that the EV is connected (available)
+            soc_next = soc + p*cfg_sim['tau']   # calculate predicted soc after this interval
+            
+            if soc_next > ev.evcapacity:        # check for battery capacity
+                p = (ev.evcapacity - soc)/cfg_sim['tau']
+            
+            if p > ev.evpmax:                   # check for maximum p
+                p = ev.evpmax
+            elif p < ev.evpmin:                 # check for minimum p
+                p = ev.evpmin
+
+            profile.append(p)
+            soc_next = soc + p*cfg_sim['tau']   # calculate soc after interval with corrected p
+            soc = soc_next
             pass
 
         else:
             # Interval that the EV is disconnected (unavailable)
+            profile.append(0)
             pass
 
-        if i == departure_interval:
+        if i == departure_interval: #(this statement is unreachable)
             # Moment at which the EV departs
             pass
-
+    
     # Finally, the resulting power profile for the device must be returned
     # This is also a list, with each value representing the power consumption (average) during an interval in Watts
     # The length of this list must be equal to the input planning list
