@@ -81,7 +81,7 @@ for house in plot_houses:
                 print("Error, data does not exist ", s)
             y = contents[s][plot_startinterval:plot_endinterval]
 
-            # creat the plot
+            # create the plot
             plt.step(x, y, where='post', label=device)
 
 
