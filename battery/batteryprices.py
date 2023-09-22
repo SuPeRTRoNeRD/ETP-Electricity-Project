@@ -15,8 +15,8 @@ def batteryprices(battery, prices, co2, profile):
     # battery.batsoc        # State of Charge in kWh
     # battery.batminsoc     # Minimum State of Charge
     # battery.batcapacity   # Capacity of the battery in kWh
-    # battery.batpmin       # Maximum power in W
-    # battery.batpmax       # Minimum power in W
+    # battery.batpmin       # Minimum power in W (Negative value)
+    # battery.batpmax       # Maximum power in W
 
     # Other input
     # prices, co2, and profile are vectors (lists) with equal length
