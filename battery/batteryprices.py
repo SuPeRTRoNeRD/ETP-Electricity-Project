@@ -8,7 +8,7 @@ import random
 def batteryprices(battery, prices, co2, profile):
     planning = []
     num_of_intervals = len(profile)
-    segment_size = 16
+    segment_size = 32
     num_of_segments = num_of_intervals // segment_size
     prices_copy = prices.copy()
     while(len(prices_copy) > segment_size):
@@ -42,25 +42,8 @@ def plan_segment(battery, prices):
         # lowest price is during interval intervals_by_price[0]
         # highest price is during interal intevals_by_price[-1]
         cheap_interval = intervals_by_price.pop(0)
-        segment[cheap_interval] = confine_p(battery.batpmax, battery, soc[cheap_interval])
+        segment[cheap_interval] = battery.batpmax
         expensive_interval = intervals_by_price.pop(-1)
-        segment[expensive_interval] = confine_p(battery.batpmin, battery, soc[expensive_interval])
+        segment[expensive_interval] = battery.batpmin
 
     return segment
-
-def confine_p(p_desired, battery, soc): # Make sure p is within battery limits (both p and soc)
-    p = p_desired
-    if p < battery.batpmin:
-        p = battery.batpmin
-    elif p > battery.batpmax:
-        p = battery.batpmax
-    
-    soc_next = soc + p * cfg_sim['tau']
-    if soc_next < battery.batminsoc:
-        p = (battery.batminsoc - soc)/cfg_sim['tau']
-        soc_next = battery.batminsoc
-    elif soc_next > battery.batcapacity:
-        p = (battery.batcapacity - soc)/cfg_sim['tau']
-        soc_next = battery.batcapacity
-
-    return p
