@@ -54,7 +54,7 @@ def evself(ev, prices, co2, profile):
         if i >= arrival_interval and i < departure_interval:
             # Interval that the EV is connected (available)
 
-            p = (-profile[i])
+            p = (-profile[i]) # take negative house profile as p. Negative values are handled by evsim
 
             soc_needed = ev.evcapacity - soc
             soc_per_interval = ev.evpmax * cfg_sim['tau']
