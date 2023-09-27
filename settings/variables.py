@@ -26,12 +26,12 @@ cfg_houses = {
     # First house:	# NOTE THE OFF-BY-ONE COUNTING STARTING AT 0!
     0: {	# <- This is the house number
         # PV configuration
-        "pvpanels":     1,  # Number of panels, integer
-        "pvazimuth":    "south",  # Available options: east, southeast, south, southwest, west
-        "pvtilt":       30,  # Available options: 10, 15, 20, 25, 30, 35, 40, 45, 50
+        "pvpanels":     6,  # Number of panels, integer
+        "pvazimuth":    "southwest",  # Available options: east, southeast, south, southwest, west
+        "pvtilt":       15,  # Available options: 10, 15, 20, 25, 30, 35, 40, 45, 50
 
         # Wind turbine configuration
-        "winddiameter": 0,  # Diameter in metres
+        "winddiameter": 1.5,  # Diameter in metres
 
         # Battery configuration
         "batminsoc":    0,  # Minimum state of charge in kWh
@@ -44,12 +44,12 @@ cfg_houses = {
     # Second house:	# NOTE THE OFF-BY-ONE COUNTING!
     1: {
         # PV configuration
-        "pvpanels":     1,  # Number of panels, integer
-        "pvazimuth":    "south",  # Available options: east, southeast, south, southwest, west
-        "pvtilt":       30,  # Available options: 10, 15, 20, 25, 30, 35, 40, 45, 50
+        "pvpanels":     6,  # Number of panels, integer
+        "pvazimuth":    "southwest",  # Available options: east, southeast, south, southwest, west
+        "pvtilt":       15,  # Available options: 10, 15, 20, 25, 30, 35, 40, 45, 50
 
         # Wind turbine configuration
-        "winddiameter": 0,  # Diameter in metres
+        "winddiameter": 1.5,  # Diameter in metres
 
         # Battery configuration
         "batminsoc":    0,  # Minimum state of charge in kWh
